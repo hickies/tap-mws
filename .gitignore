@@ -2,3 +2,5 @@ __pycache__
 .env
 .ideas
 local
+config.json
+state.json

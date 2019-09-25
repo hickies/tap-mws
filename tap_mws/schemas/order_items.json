@@ -1,0 +1,42 @@
+{
+    "properties": {
+        "InvoiceData": null,
+        "Title": null,
+        "ASIN": null,
+        "TaxCollection": null,
+        "ProductInfo": null,
+        "ConditionNote": null,
+        "PriceDesignation": null,
+        "ShippingTax": null,
+        "ScheduledDeliveryStartDate": null,
+        "ItemTax": null,
+        "IsGift": null,
+        "CODFee": null,
+        "ConditionSubtypeId": null,
+        "BuyerCustomizedInfo": null,
+        "PromotionIds": null,
+        "GiftWrapTax": null,
+        "CODFeeDiscount": null,
+        "OrderItemId": null,
+        "SellerSKU": null,
+        "IsTransparency": null,
+        "PromotionDiscount": null,
+        "ConditionId": null,
+        "QuantityOrdered": null,
+        "GiftMessageText": null,
+        "ShippingPrice": null,
+        "ItemPrice": null,
+        "ShippingDiscount": null,
+        "GiftWrapLevel": null,
+        "GiftWrapPrice": null,
+        "ScheduledDeliveryEndDate": null,
+        "QuantityShipped": null,
+        "PointsGranted": null,
+        "SerialNumberRequired": null
+    },
+    "type": [
+        "null",
+        "object"
+    ],
+    "additional_properties": false
+}
