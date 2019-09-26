@@ -1,47 +1,357 @@
 {
-    "properties": {
-        "BuyerTaxInfo": null,
-        "PaymentMethodDetails": null,
-        "AmazonOrderId": null,
-        "PaymentExecutionDetail": null,
-        "BuyerName": null,
-        "IsPrime": null,
-        "MarketplaceId": null,
-        "ShippedByAmazonTFM": null,
-        "NumberOfItemsShipped": null,
-        "OrderType": null,
-        "EarliestShipDate": null,
-        "EasyShipShipmentStatus": null,
-        "PaymentMethod": null,
-        "PurchaseDate": null,
-        "OrderChannel": null,
-        "TFMShipmentStatus": null,
-        "IsPremiumOrder": null,
-        "LastUpdateDate": null,
-        "OrderTotal": null,
-        "PromiseResponseDueDate": null,
-        "LatestShipDate": null,
-        "ShipmentServiceLevelCategory": null,
-        "PurchaseOrderNumber": null,
-        "NumberOfItemsUnshipped": null,
-        "SellerOrderId": null,
-        "BuyerEmail": null,
-        "LatestDeliveryDate": null,
-        "SalesChannel": null,
-        "IsReplacementOrder": null,
-        "IsEstimatedShipDateSet": null,
-        "ShippingAddress": null,
-        "IsBusinessOrder": null,
-        "OrderStatus": null,
-        "FulfillmentChannel": null,
-        "EarliestDeliveryDate": null,
-        "ShipServiceLevel": null,
-        "ReplacedOrderId": null,
-        "BuyerCounty": null
-    },
     "type": [
         "null",
         "object"
     ],
+    "properties": {
+        "SellerOrderId": {
+            "type": [
+                "string"
+            ]
+        },
+        "PurchaseOrderNumber": {
+            "type": [
+                "string"
+            ]
+        },
+        "BuyerCounty": {
+            "type": [
+                "string"
+            ]
+        },
+        "ReplacedOrderId": {
+            "type": [
+                "string"
+            ]
+        },
+        "PurchaseDate": {
+            "type": [
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "NumberOfItemsUnshipped": {
+            "type": [
+                "integer"
+            ]
+        },
+        "ShipServiceLevel": {
+            "type": [
+                "string"
+            ]
+        },
+        "EasyShipShipmentStatus": {
+            "type": [
+                "string"
+            ]
+        },
+        "TFMShipmentStatus": {
+            "type": [
+                "string"
+            ]
+        },
+        "EarliestShipDate": {
+            "type": [
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "PaymentExecutionDetail": {
+            "type": [
+                "array"
+            ],
+            "items": {
+                "type": [
+                    "object"
+                ],
+                "properties": {
+                    "PaymentMethod": {
+                        "type": [
+                            "string"
+                        ]
+                    },
+                    "Payment": {
+                        "type": [
+                            "object"
+                        ],
+                        "properties": {
+                            "CurrencyCode": {
+                                "type": [
+                                    "string"
+                                ]
+                            },
+                            "Amount": {
+                                "type": [
+                                    "string"
+                                ]
+                            }
+                        },
+                        "additional_properties": false
+                    }
+                },
+                "additional_properties": false
+            }
+        },
+        "OrderStatus": {
+            "type": [
+                "string"
+            ]
+        },
+        "PaymentMethodDetails": {
+            "type": [
+                "object"
+            ],
+            "properties": {
+                "PaymentMethodDetail": {
+                    "type": [
+                        "string"
+                    ]
+                }
+            },
+            "additional_properties": false
+        },
+        "IsPremiumOrder": {
+            "type": [
+                "boolean"
+            ]
+        },
+        "FulfillmentChannel": {
+            "type": [
+                "string"
+            ]
+        },
+        "EarliestDeliveryDate": {
+            "type": [
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "BuyerName": {
+            "type": [
+                "string"
+            ]
+        },
+        "ShippedByAmazonTFM": {
+            "type": [
+                "boolean"
+            ]
+        },
+        "IsBusinessOrder": {
+            "type": [
+                "boolean"
+            ]
+        },
+        "LatestShipDate": {
+            "type": [
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "PaymentMethod": {
+            "type": [
+                "string"
+            ]
+        },
+        "AmazonOrderId": {
+            "type": [
+                "string"
+            ]
+        },
+        "IsEstimatedShipDateSet": {
+            "type": [
+                "boolean"
+            ]
+        },
+        "OrderTotal": {
+            "type": [
+                "object"
+            ],
+            "properties": {
+                "CurrencyCode": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "Amount": {
+                    "type": [
+                        "string"
+                    ]
+                }
+            },
+            "additional_properties": false
+        },
+        "ShippingAddress": {
+            "type": [
+                "object"
+            ],
+            "properties": {
+                "AddressLine1": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "District": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "AddressLine3": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "AddressLine2": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "Name": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "PostalCode": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "City": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "Phone": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "StateOrRegion": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "AddressType": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "County": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "CountryCode": {
+                    "type": [
+                        "string"
+                    ]
+                }
+            },
+            "additional_properties": false
+        },
+        "BuyerEmail": {
+            "type": [
+                "string"
+            ]
+        },
+        "OrderChannel": {
+            "type": [
+                "string"
+            ]
+        },
+        "IsPrime": {
+            "type": [
+                "boolean"
+            ]
+        },
+        "IsReplacementOrder": {
+            "type": [
+                "boolean"
+            ]
+        },
+        "LatestDeliveryDate": {
+            "type": [
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "MarketplaceId": {
+            "type": [
+                "string"
+            ]
+        },
+        "NumberOfItemsShipped": {
+            "type": [
+                "integer"
+            ]
+        },
+        "PromiseResponseDueDate": {
+            "type": [
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "ShipmentServiceLevelCategory": {
+            "type": [
+                "string"
+            ]
+        },
+        "LastUpdateDate": {
+            "type": [
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "SalesChannel": {
+            "type": [
+                "string"
+            ]
+        },
+        "BuyerTaxInfo": {
+            "type": [
+                "object"
+            ],
+            "properties": {
+                "TaxingRegion": {
+                    "type": [
+                        "string"
+                    ]
+                },
+                "TaxClassifications": {
+                    "type": [
+                        "array"
+                    ],
+                    "items": {
+                        "type": [
+                            "object"
+                        ],
+                        "properties": {
+                            "Name": {
+                                "type": [
+                                    "string"
+                                ]
+                            },
+                            "Value": {
+                                "type": [
+                                    "string"
+                                ]
+                            }
+                        },
+                        "additional_properties": false
+                    }
+                },
+                "CompanyLegalName": {
+                    "type": [
+                        "string"
+                    ]
+                }
+            },
+            "additional_properties": false
+        },
+        "OrderType": {
+            "type": [
+                "string"
+            ]
+        }
+    },
     "additional_properties": false
 }

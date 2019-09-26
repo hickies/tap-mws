@@ -19,7 +19,6 @@ def main():
     """
     Main function - process args, build runner, execute request
     """
-    # TODO: Optional argument 'order status' - check for this?
     args = singer.utils.parse_args(
         required_config_keys=['seller_id', 'aws_access_key',
                               'client_secret', 'marketplace_id', 'start_date', 'user_agent']

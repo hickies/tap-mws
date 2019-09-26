@@ -3,6 +3,7 @@ Stream base class
 """
 import inspect
 import os
+import datetime
 
 import singer
 
@@ -24,14 +25,15 @@ class MWSBase:
     ID_FIELD = ''
     STREAM_NAME = ''
     KEY_PROPERTIES = []
+    BOOKMARK_FIELD = None
 
     def __init__(self, connection, config, state, catalog):
         self.connection = connection
         self.config = config
         self.state = state
         self.ids = None
-        # self.catalog = catalog
-
+        self.bookmark_date = None
+        self.catalog = catalog
         self.schema = None
 
         if catalog:
@@ -48,26 +50,30 @@ class MWSBase:
                         '../schemas/{}.json'.format(self.STREAM_NAME))))
             self.key_properties = self.KEY_PROPERTIES
 
-        # self.state = state
-        # bookmark_date = singer.bookmarks.get_bookmark(
-        #     state=state,
-        #     tap_stream_id=self.STREAM_NAME,
-        #     key='last_record'
-        # )
-        # if not bookmark_date:
-        #     bookmark_date = client.start_date
-        #
-        # self.bookmark_date = str_to_date(bookmark_date)
-        #
-        # self.product_ids = []
-
-    def row_to_dict(self, row):
+    def _row_to_dict(self, row):
         result = row.__dict__
         del result['_connection']
         for key, value in result.items():
             if hasattr(value, '_connection'):
-                result[key] = self.row_to_dict(value)
+                result[key] = self._row_to_dict(value)
         return result
+
+    def row_to_dict(self, row):
+        return self._row_to_dict(row)
+
+    def starting_bookmark_date(self):
+        if self.BOOKMARK_FIELD is None:
+            return None
+
+        bookmark_date = singer.bookmarks.get_bookmark(
+            state=self.state,
+            tap_stream_id=self.STREAM_NAME,
+            key=self.BOOKMARK_FIELD
+        )
+        if not bookmark_date:
+            bookmark_date = self.config.get('start_date')
+
+        return bookmark_date
 
     def sync(self):
         """
@@ -75,6 +81,8 @@ class MWSBase:
         These steps are the same for all streams
         Differences between streams are implemented by overriding .do_sync() method
         """
+        new_bookmark_date = self.bookmark_date = self.starting_bookmark_date()
+
         singer.write_schema(self.STREAM_NAME, self.schema, self.key_properties)
         rows = self.request_list()
         self.ids = []
@@ -84,42 +92,31 @@ class MWSBase:
                 message = singer.RecordMessage(
                     stream=self.STREAM_NAME,
                     record=row_as_dict,
+                    time_extracted=singer.utils.now()
                 )
                 singer.write_message(message)
                 self.ids.append(row_as_dict[self.ID_FIELD])
-            counter.increment()
-        # singer.write_state(self.state)
+                if self.BOOKMARK_FIELD:
+                    new_bookmark_date = max(new_bookmark_date, row_as_dict[self.BOOKMARK_FIELD])
+                counter.increment()
 
+        if self.BOOKMARK_FIELD:
+            self.state = singer.write_bookmark(self.state, self.STREAM_NAME, self.BOOKMARK_FIELD, new_bookmark_date)
 
-    # def do_sync(self):
-    #     """
-    #     Main sync functionality
-    #     Most of the streams use this
-    #     A few of the streams work differently and override this method
-    #     """
-    #     try:
-    #         response = self.client.make_request(self.URI.format(self.bookmark_date.strftime('%Y-%m-%d')))
-    #     except RequestError:
-    #         return
-    #
-    #     new_bookmark_date = self.bookmark_date
-    #
-    #     with singer.metrics.Counter('record_count', {'endpoint': self.STREAM_NAME}) as counter:
-    #         for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
-    #             record = self.RECORD_CLASS(entry, self.schema)
-    #             new_bookmark_date = max(new_bookmark_date, record.bookmark)
-    #             singer.write_message(singer.RecordMessage(
-    #                 stream=self.STREAM_NAME,
-    #                 record=record.for_export,
-    #             ))
-    #         counter.increment()
-    #
-    #     self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', date_to_str(new_bookmark_date))
     def check_rate_limit(self):
         raise NotImplemented
 
+    def initial_mws_api_call(self):
+        raise NotImplemented
+
+    @staticmethod
+    def get_list_from_api_result(result):
+        raise NotImplemented
+
+    def next_mws_api_call(self, next_token):
+        raise NotImplemented
+
     def request_list(self):
-        # TODO: Rate limiting, error handling
         self.check_rate_limit()
         result = self.initial_mws_api_call()
 

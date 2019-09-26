@@ -48,7 +48,7 @@ class MWSRunner:
 
         catalog = [
             stream.generate_catalog()
-            for stream in self.streams
+            for stream in self.streams.values()
         ]
 
         json.dump({'streams': catalog}, sys.stdout, indent=4)
@@ -83,7 +83,8 @@ class MWSRunner:
 
         order_items_stream = self.streams[OrderItemsStream]
 
-        # TODO: Remove this - for testing only - get order items for all orders
         for order_id in order_stream.ids:
             order_items_stream.order_id = order_id
             self.sync_stream(order_items_stream)
+
+        singer.write_state(self.state)
