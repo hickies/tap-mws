@@ -23,14 +23,19 @@ class MWSRunner:
         self.state = state
         self.config = config
         self._connection = None
+        self.catalog = catalog
         self.streams = {
-            Stream: Stream(self.connection, config, state, catalog) for Stream in [OrdersStream, OrderItemsStream]
+            Stream: Stream(self.connection, config, state, catalog)
+            for Stream in [OrdersStream, OrderItemsStream]
         }
 
     @property
     def connection(self):
-        # Share the connection between the streams, but only establish it when we need it - lazy loading
-        # Note: may be overkill
+        """
+        Share the connection between the streams,
+        but only establish it when we need it - lazy loading
+        This may be overkill
+        """
         if not self._connection:
             self._connection = MWSConnection(
                 aws_access_key_id=self.config.get('aws_access_key'),
@@ -60,15 +65,15 @@ class MWSRunner:
         """
         try:
             stream.sync()
-        except OSError as e:
-            LOGGER.error(str(e))
-            exit(e.errno)
+        except OSError as error:
+            LOGGER.error(str(error))
+            exit(error.errno)
 
-        except Exception as e:
-            LOGGER.error(str(e))
+        except Exception as error:
+            LOGGER.error(str(error))
             LOGGER.error('Failed to sync endpoint {}, moving on!'
                          .format(stream.STREAM_NAME))
-            raise e
+            raise error
 
     def do_sync(self):
         """
@@ -83,8 +88,13 @@ class MWSRunner:
 
         order_items_stream = self.streams[OrderItemsStream]
 
+        # Sync the order items, one order at a time
         for order_id in order_stream.ids:
             order_items_stream.order_id = order_id
             self.sync_stream(order_items_stream)
 
+        # Output the latest datetime stamp of the orders
+        # This is left until the end.
+        # If the process aborts before the very end,
+        # it will sync anything that was missed during the next run
         singer.write_state(self.state)

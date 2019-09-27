@@ -1,3 +1,7 @@
+"""
+The stream for orders
+"""
+
 import singer
 
 from tap_mws.streams.base import MWSBase
@@ -6,12 +10,19 @@ LOGGER = singer.get_logger()
 
 
 class OrdersStream(MWSBase):
+    """
+    The stream of orders
+    """
     STREAM_NAME = 'orders'
     BOOKMARK_FIELD = 'LastUpdateDate'
     ID_FIELD = 'SellerOrderId'
     KEY_PROPERTIES = [ID_FIELD]
+    KEEP_IDS = True
 
     def initial_mws_api_call(self):
+        """
+        Call MWS's list_orders and return the result
+        """
         LOGGER.info('MWS API call, list_orders from %s', self.bookmark_date)
         arguments = dict(
             LastUpdatedAfter=self.bookmark_date,
@@ -23,6 +34,9 @@ class OrdersStream(MWSBase):
         return self.connection.list_orders(**arguments).ListOrdersResult
 
     def next_mws_api_call(self, next_token):
+        """
+        Call MWS's list_orders_by_next_token and return the result
+        """
         LOGGER.info('MWS API call, list_orders_by_next_token')
         return self.connection.list_orders_by_next_token(
             NextToken=next_token
