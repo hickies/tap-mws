@@ -32,7 +32,7 @@
         },
         "NumberOfItemsUnshipped": {
             "type": [
-                "integer"
+                "string"
             ]
         },
         "ShipServiceLevel": {
@@ -58,6 +58,7 @@
         },
         "PaymentExecutionDetail": {
             "type": [
+                "null",
                 "array"
             ],
             "items": {
@@ -112,7 +113,8 @@
         },
         "IsPremiumOrder": {
             "type": [
-                "boolean"
+                "boolean",
+                "string"
             ]
         },
         "FulfillmentChannel": {
@@ -133,12 +135,13 @@
         },
         "ShippedByAmazonTFM": {
             "type": [
-                "boolean"
+                "string"
             ]
         },
         "IsBusinessOrder": {
             "type": [
-                "boolean"
+                "boolean",
+                "string"
             ]
         },
         "LatestShipDate": {
@@ -159,11 +162,13 @@
         },
         "IsEstimatedShipDateSet": {
             "type": [
-                "boolean"
+                "boolean",
+                "string"
             ]
         },
         "OrderTotal": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -174,7 +179,7 @@
                 },
                 "Amount": {
                     "type": [
-                        "string"
+                        "number"
                     ]
                 }
             },
@@ -182,6 +187,7 @@
         },
         "ShippingAddress": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -260,12 +266,14 @@
         },
         "IsPrime": {
             "type": [
-                "boolean"
+                "boolean",
+                "string"
             ]
         },
         "IsReplacementOrder": {
             "type": [
-                "boolean"
+                "boolean",
+                "string"
             ]
         },
         "LatestDeliveryDate": {
@@ -281,7 +289,7 @@
         },
         "NumberOfItemsShipped": {
             "type": [
-                "integer"
+                "string"
             ]
         },
         "PromiseResponseDueDate": {
