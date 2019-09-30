@@ -6,6 +6,8 @@ import os
 
 import singer
 
+LOGGER = singer.get_logger()
+
 
 def stream_details_from_catalog(catalog, stream_name):
     """
@@ -36,6 +38,7 @@ class MWSBase:
         self.catalog = catalog
         self.include_stream = True  # Should this stream be sync'd
         self.exclude_fields = []  # A list of fields to exclude from the output stream
+        self.schema = None
 
         if catalog:
             stream_details = stream_details_from_catalog(catalog, self.STREAM_NAME)
@@ -86,7 +89,6 @@ class MWSBase:
 
         # Format 2
         for item in metadata:
-            print(item)
             if item.get('breadcrumb') == []:
                 if item.get('metadata') and item['metadata'].get('selected') == 'false':
                     return False
@@ -216,6 +218,7 @@ class MWSBase:
         Differences between streams are implemented by overriding .do_sync() method
         """
         if not self.KEEP_IDS and not self.include_stream:
+            LOGGER.info('Skipping stream %s - excluded in catalog', self.STREAM_NAME)
             return
 
         new_bookmark_date = self.bookmark_date = self.starting_bookmark_date()
@@ -241,7 +244,7 @@ class MWSBase:
                 counter.increment()
 
         if self.BOOKMARK_FIELD:
-            self.state = singer.write_bookmark(
+            singer.write_bookmark(
                 self.state, self.STREAM_NAME, self.BOOKMARK_FIELD, new_bookmark_date
             )
 
