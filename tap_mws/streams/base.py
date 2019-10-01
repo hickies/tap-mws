@@ -28,6 +28,7 @@ class MWSBase:
     KEY_PROPERTIES = []
     BOOKMARK_FIELD = None
     KEEP_IDS = False
+    BATCH_SIZE = None
 
     def __init__(self, connection, config, state, catalog):
         self.connection = connection
@@ -223,6 +224,10 @@ class MWSBase:
 
         new_bookmark_date = self.bookmark_date = self.starting_bookmark_date()
 
+        # Will be set to false if we stop early due to reaching the end of a batch
+        # to tell the runner to continue with the next batch
+        all_done = True
+
         singer.write_schema(self.STREAM_NAME, self.schema, self.key_properties)
         rows = self.request_list()
         self.ids = []
@@ -243,10 +248,21 @@ class MWSBase:
                     new_bookmark_date = max(new_bookmark_date, row_as_dict[self.BOOKMARK_FIELD])
                 counter.increment()
 
+                # Stop if we've done enough for one batch
+                if self.BATCH_SIZE and counter.value >= self.BATCH_SIZE:
+                    # Sync action stopped due to end of batch - so probably more rows
+                    # Note that there is a 1/BATCH_SIZE chance that the end of a
+                    # batch is exactly the end of the whole process. In that case
+                    # the runner will make one more .sync request, for one more (empty) batch
+                    all_done = False
+                    break
+
         if self.BOOKMARK_FIELD:
             singer.write_bookmark(
                 self.state, self.STREAM_NAME, self.BOOKMARK_FIELD, new_bookmark_date
             )
+
+        return all_done
 
     def check_rate_limit(self):
         """

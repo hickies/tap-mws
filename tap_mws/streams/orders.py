@@ -18,6 +18,7 @@ class OrdersStream(MWSBase):
     ID_FIELD = 'SellerOrderId'
     KEY_PROPERTIES = [ID_FIELD]
     KEEP_IDS = True
+    BATCH_SIZE = 100
 
     def initial_mws_api_call(self):
         """

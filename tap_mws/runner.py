@@ -84,17 +84,22 @@ class MWSRunner:
         # We need the list of product ids for the rankings report
         # so sync the products first
         order_stream = self.streams[OrdersStream]
-        self.sync_stream(order_stream)
 
-        order_items_stream = self.streams[OrderItemsStream]
+        # Process orders in batches - and write the state out at the end of each batch
+        # Should the process fail, we can restart at the end of the
+        # last successful batch, rather than at the end of the previous run
+        done = False
+        while not done:
+            done = self.sync_stream(order_stream)
 
-        # Sync the order items, one order at a time
-        for order_id in order_stream.ids:
-            order_items_stream.order_id = order_id
-            self.sync_stream(order_items_stream)
+            # Sync the order items, one order at a time
+            order_items_stream = self.streams[OrderItemsStream]
+            for order_id in order_stream.ids:
+                order_items_stream.order_id = order_id
+                self.sync_stream(order_items_stream)
 
-        # Output the latest datetime stamp of the orders
-        # This is left until the end.
-        # If the process aborts before the very end,
-        # it will sync anything that was missed during the next run
-        singer.write_state(self.state)
+            # Output the latest datetime stamp of the orders
+            # This is left until the end.
+            # If the process aborts before the very end,
+            # it will sync anything that was missed during the next run
+            singer.write_state(self.state)
