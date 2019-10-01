@@ -15,7 +15,7 @@ class OrdersStream(MWSBase):
     """
     STREAM_NAME = 'orders'
     BOOKMARK_FIELD = 'LastUpdateDate'
-    ID_FIELD = 'SellerOrderId'
+    ID_FIELD = 'AmazonOrderId'
     KEY_PROPERTIES = [ID_FIELD]
     KEEP_IDS = True
     BATCH_SIZE = 100

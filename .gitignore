@@ -3,6 +3,7 @@ __pycache__
 .ideas
 local
 config.json
+tap-config.json
 state.json
 catalog.json
 dist
