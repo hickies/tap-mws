@@ -208,7 +208,8 @@
         },
         "IsGift": {
             "type": [
-                "boolean"
+                "boolean",
+                "string"
             ]
         },
         "PromotionDiscount": {
@@ -231,7 +232,8 @@
         },
         "SerialNumberRequired": {
             "type": [
-                "boolean"
+                "boolean",
+                "string"
             ]
         },
         "ASIN": {
@@ -318,7 +320,8 @@
         },
         "IsTransparency": {
             "type": [
-                "boolean"
+                "boolean",
+                "string"
             ]
         },
         "GiftWrapLevel": {
