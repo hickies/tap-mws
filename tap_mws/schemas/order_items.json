@@ -6,12 +6,14 @@
     "properties": {
         "ProductInfo": {
             "type": [
+                "string",
                 "object"
             ],
             "properties": {
                 "NumberOfItems": {
                     "type": [
-                        "integer"
+                        "integer",
+                        "string"
                     ]
                 }
             },
@@ -19,7 +21,8 @@
         },
         "QuantityOrdered": {
             "type": [
-                "integer"
+                "integer",
+                "string"
             ]
         },
         "Title": {
@@ -83,7 +86,8 @@
         },
         "QuantityShipped": {
             "type": [
-                "integer"
+                "integer",
+                "string"
             ]
         },
         "ConditionNote": {
@@ -98,6 +102,7 @@
         },
         "CODFee": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -116,6 +121,7 @@
         },
         "ShippingDiscount": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -126,6 +132,7 @@
                 },
                 "Amount": {
                     "type": [
+                        "number",
                         "string"
                     ]
                 }
@@ -180,6 +187,7 @@
         },
         "ShippingTax": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -190,6 +198,7 @@
                 },
                 "Amount": {
                     "type": [
+                        "number",
                         "string"
                     ]
                 }
@@ -214,6 +223,7 @@
         },
         "PromotionDiscount": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -224,6 +234,7 @@
                 },
                 "Amount": {
                     "type": [
+                        "number",
                         "string"
                     ]
                 }
@@ -243,6 +254,7 @@
         },
         "ItemPrice": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -253,6 +265,7 @@
                 },
                 "Amount": {
                     "type": [
+                        "number",
                         "string"
                     ]
                 }
@@ -261,6 +274,7 @@
         },
         "GiftWrapPrice": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -271,6 +285,7 @@
                 },
                 "Amount": {
                     "type": [
+                        "number",
                         "string"
                     ]
                 }
@@ -279,6 +294,7 @@
         },
         "ShippingPrice": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -289,6 +305,7 @@
                 },
                 "Amount": {
                     "type": [
+                        "number",
                         "string"
                     ]
                 }
@@ -297,6 +314,7 @@
         },
         "GiftWrapTax": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -307,6 +325,7 @@
                 },
                 "Amount": {
                     "type": [
+                        "number",
                         "string"
                     ]
                 }
@@ -336,11 +355,13 @@
         },
         "PromotionIds": {
             "type": [
+                "array",
                 "string"
             ]
         },
         "CODFeeDiscount": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -351,6 +372,7 @@
                 },
                 "Amount": {
                     "type": [
+                        "number",
                         "string"
                     ]
                 }
@@ -364,6 +386,7 @@
         },
         "ItemTax": {
             "type": [
+                "null",
                 "object"
             ],
             "properties": {
@@ -374,6 +397,7 @@
                 },
                 "Amount": {
                     "type": [
+                        "number",
                         "string"
                     ]
                 }
