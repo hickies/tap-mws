@@ -6,7 +6,8 @@
     "properties": {
         "SellerOrderId": {
             "type": [
-                "string"
+                "string",
+                "null"
             ]
         },
         "PurchaseOrderNumber": {
