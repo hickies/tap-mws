@@ -11,7 +11,7 @@ To set up tap-mws in Stitch, you need:
 
 ### Setup
 Example Config file:
-```json
+```javascript
 {
   "seller_id": "", // Seller id for the account you would like to pull
   "aws_access_key" : "", // Dev key provided by amazon
@@ -22,32 +22,22 @@ Example Config file:
 }
 
 ```
----
-
-## [tap_name] Replication
-
-If pertinent, include details about how the tap replicates data and/or uses the API. As Stitch users are billed for total rows replicated, any info that can shed light on the number of rows replicated or reduce usage is considered necessary.
-
-Examples:
-
-- Replication strategy - attribution/conversion windows ([Google AdWords](https://www.stitchdata.com/docs/integrations/saas/google-adwords#data-extraction-conversion-window)), event-based updates, etc.
-- API usage, especially for services that enforce rate limits or quotas, like Salesforce or [Marketo](https://www.stitchdata.com/docs/integrations/saas/marketo#marketo-daily-api-call-limits)
 
 ---
 
-## [tap_name] Table Schemas
+## tap-mws Table Schemas
 
-For **each** table that the tap produces, provide the following:
+**orders**
+- Table name: orders
+- Description: order level data for amazon orders
+- Primary key column(s): AmazonOrderId
+- Replicated incrementally time
+- Bookmark column(s): CreatedAfter
+- Link to API endpoint documentation: http://docs.developer.amazonservices.com/en_US/orders-2013-09-01/Orders_ListOrders.html
 
-- Table name: 
-- Description:
-- Primary key column(s): 
-- Replicated fully or incrementally _(uses a bookmark to maintain state)_:
-- Bookmark column(s): _(if replicated incrementally)_ 
-- Link to API endpoint documentation:
-
----
-
-## Troubleshooting / Other Important Info
-
-Anything else users should know about using this tap? For example: `some_column` is a Unix timestamp.
+**order items**
+- Table name: order_items
+- Description: Line level data for orders
+- Primary key column(s): AmazonOrderId
+- Replicated fully
+- Link to API endpoint documentation: http://docs.developer.amazonservices.com/en_US/orders-2013-09-01/Orders_ListOrderItems.html
