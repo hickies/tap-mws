@@ -6,7 +6,7 @@
 
 To set up tap-mws in Stitch, you need:
 
--  **Amazon MWS Keys** You will need to register as a devloper either through your own seller account or as a standard devloper see ([here](https://docs.developer.amazonservices.com/en_US/dev_guide/DG_Registering.html))
+-  **Amazon MWS Keys** You will need to register as a devloper either through your own seller account or as a standard devloper see [here](https://docs.developer.amazonservices.com/en_US/dev_guide/DG_Registering.html)
 -  **An Amazon Seller Account** You will need an amazon account to pull orders from.
 
 ### Setup
