@@ -14,7 +14,7 @@ class OrdersStream(MWSBase):
     The stream of orders
     """
     STREAM_NAME = 'orders'
-    BOOKMARK_FIELD = 'LastUpdateDate'
+    BOOKMARK_FIELD = 'CreatedAfter'
     ID_FIELD = 'AmazonOrderId'
     KEY_PROPERTIES = [ID_FIELD]
     KEEP_IDS = True
@@ -26,7 +26,7 @@ class OrdersStream(MWSBase):
         """
         LOGGER.info('MWS API call, list_orders from %s', self.bookmark_date)
         arguments = dict(
-            LastUpdatedAfter=self.bookmark_date,
+            CreatedAfter=self.bookmark_date,
             MarketplaceId=[self.config.get('marketplace_id')],
         )
         order_status = self.config.get('order_status')
