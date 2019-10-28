@@ -41,3 +41,8 @@ Example Config file:
 - Primary key column(s): AmazonOrderId
 - Replicated fully
 - Link to API endpoint documentation: http://docs.developer.amazonservices.com/en_US/orders-2013-09-01/Orders_ListOrderItems.html
+
+
+---
+
+Copyright &copy; 2019 Stitch

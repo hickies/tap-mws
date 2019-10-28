@@ -21,7 +21,7 @@ def main():
     """
     args = singer.utils.parse_args(
         required_config_keys=['seller_id', 'aws_access_key',
-                              'client_secret', 'marketplace_id', 'start_date', 'user_agent']
+                              'client_secret', 'marketplace_id', 'start_date']
     )
 
     # When writing out the bookmark/state, it adds an extra 'level' to the
