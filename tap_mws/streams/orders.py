@@ -14,7 +14,7 @@ class OrdersStream(MWSBase):
     The stream of orders
     """
     STREAM_NAME = 'orders'
-    BOOKMARK_FIELD = 'CreatedAfter'
+    BOOKMARK_FIELD = 'PurchaseDate'
     ID_FIELD = 'AmazonOrderId'
     KEY_PROPERTIES = [ID_FIELD]
     KEEP_IDS = True
