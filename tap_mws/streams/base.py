@@ -172,7 +172,6 @@ class MWSBase:
         """
         if self.BOOKMARK_FIELD is None:
             return None
-
         bookmark_date = singer.bookmarks.get_bookmark(
             state=self.state,
             tap_stream_id=self.STREAM_NAME,
@@ -222,7 +221,9 @@ class MWSBase:
             LOGGER.info('Skipping stream %s - excluded in catalog', self.STREAM_NAME)
             return
 
+
         new_bookmark_date = self.bookmark_date = self.starting_bookmark_date()
+        # amazon doesn't guarantee that all orders created after the createdafter data that you specify will be returned
 
         # Will be set to false if we stop early due to reaching the end of a batch
         # to tell the runner to continue with the next batch
@@ -302,6 +303,7 @@ class MWSBase:
         """
         self.check_rate_limit()
         result = self.initial_mws_api_call()
+
 
         done = False
         while not done:

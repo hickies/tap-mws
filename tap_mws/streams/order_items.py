@@ -51,7 +51,7 @@ class OrderItemsStream(MWSBase):
         return result.OrderItems.OrderItem
 
     # Actual limit: 30 initial requests, then 1 every 2 seconds
-    @singer.ratelimit(29, 3)
+    @singer.ratelimit(29, 60)
     def check_rate_limit(self):
         pass
 

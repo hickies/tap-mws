@@ -48,6 +48,6 @@ class OrdersStream(MWSBase):
         return result.Orders.Order
 
     # Actual limit: 6 initial requests, then 1 every 60 seconds. Err on the side of caution
-    @singer.ratelimit(5, 65)
+    @singer.ratelimit(5, 360)
     def check_rate_limit(self):
         pass

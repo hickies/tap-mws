@@ -27,13 +27,8 @@ def main():
     # When writing out the bookmark/state, it adds an extra 'level' to the
     # data - the toplevel now being 'value', with 'bookmarks' its one and only attribute
     # When using the state (extracting or updating a bookmark), it expects 'bookmarks'
-    # to be at the root
-    # So when reading the state back in, remove the 'value' at the top
-    # so 'bookmarks' is back at the top
-    # I don't know why it works like this, or what I'm missing here
     state = args.state
-    if state:
-        state = state['value']
+
 
     runner = MWSRunner(
         config=args.config,
