@@ -101,7 +101,8 @@
         },
         "PaymentMethodDetails": {
             "type": [
-                "object"
+                "object",
+                "string"
             ],
             "properties": {
                 "PaymentMethodDetail": {
